@@ -1,0 +1,84 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion build_versions.target_sdk
+
+
+    defaultConfig {
+        minSdkVersion build_versions.min_sdk
+        targetSdkVersion build_versions.target_sdk
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        consumerProguardFiles 'consumer-rules.pro'
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [AROUTER_MODULE_NAME: project.getName()]
+            }
+        }
+        ndk {
+            //设置支持的SO库架构（开发者可以根据需要，选择一个或多个平台的so）
+            abiFilters "armeabi", "armeabi-v7a", "arm64-v8a", "x86","x86_64"
+        }
+    }
+
+    buildTypes {
+        debug{
+            buildConfigField "boolean", 'IS_DEBUG', 'true'
+        }
+        release {
+            minifyEnabled false
+            buildConfigField "boolean", 'IS_DEBUG', 'false'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    api project(":lib_refresh_layout")
+    api project(':lib_api_base')
+    api deps.junit
+    api deps.testrunner
+    api deps.testespresso
+
+    // Support libraries
+    api deps.support.app_compat
+    api deps.support.v4
+    api deps.support.v13
+    api deps.support.design
+    api deps.support.cardview
+    api deps.support.percent
+    api deps.support.recyclerview
+    api deps.support.multidex
+    api deps.support.constraint_layout
+
+    api deps.arouter_api
+    api deps.rxpermissions
+    api deps.eventbus;
+    api deps.MultiImageSelector
+
+
+    api deps.rxjava2
+    api deps.rxandroid
+    api deps.adapter_rxjava2
+    api deps.converter_gson
+    api deps.logging_interceptor
+
+    api deps.rxlifecycle
+    api deps.rxlifecycle_android
+    api deps.rxlifecycle_components
+
+    api deps.dagger
+    api deps.glide
+
+    api deps.stetho
+
+    api deps.greendao
+    api deps.greendao_update
+
+    annotationProcessor deps.arouter_compiler
+    annotationProcessor deps.glide_compiler
+    annotationProcessor deps.dagger_compiler
+}

@@ -1,0 +1,2 @@
+include ':module_app', ':lib_common', ':lib_refresh_layout', ':lib_api_base'
+rootProject.name='XiangXiang_2020'
